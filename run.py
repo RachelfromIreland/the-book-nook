@@ -40,8 +40,8 @@ def is_new_user():
         for info in user_info[1:]:
             if info[0] == username and info[5] ==password:
                 print("User logged in.")
+                is_book_available(username)
                 return username, password
-                
         
         print("No record of user, must create account to continue.")
         return is_new_user()
@@ -52,7 +52,7 @@ def is_new_user():
     
     
 
-def is_book_available():
+def is_book_available(username):
     """
     Check if the book title is available
     Run a while loop to get a book input that exists in the library
@@ -65,9 +65,9 @@ def is_book_available():
 
         if validate_title(title):
             print("Book found! Checking availability...")
-            get_book_info(title)
+            get_book_info(title, username)
 
-            return title
+            return title, username
     
 
 def validate_title(title):
@@ -85,7 +85,7 @@ def validate_title(title):
     
     return True
 
-def get_book_info(title):
+def get_book_info(title, username):
     """
     Checks book info after book title is found, returns date available to user
     """
@@ -94,8 +94,9 @@ def get_book_info(title):
     book_availablity = books.cell(book_info.row, 3)
     date_for_book = books.cell(book_info.row, 5).value
 
-    if book_availablity == "Yes":
+    if book_availablity.value == "Yes":
         print(f"The book '{title}' is available!")
+        borrow_book(title, username)
 
 
     else:
@@ -126,14 +127,17 @@ def update_books_borrowed(title, username):
     today = datetime.now().date()
     return_date = today + timedelta(days=14)
 
+    #Convert return date to a string - learned from programiz - link in README
+    return_date_str = return_date.strftime("%Y:%m:%d")
+
     #Update book availability to "no", add username and return date to relevant cells
     books.update_cell(borrowed_book.row, 3, "No")
     books.update_cell(borrowed_book.row, 4, username)
-    books.update_cell(borrowed_book.row, 5, return_date)
+    books.update_cell(borrowed_book.row, 5, return_date_str)
 
     print(f"You have borrowed {title}.\nThis book is due back on {return_date}.\nThank you for using the Book Nook!")
 
 print("Welcome to The Book Nook!\nBorrow from our vast range of classic books.")
 is_new_user()
-is_book_available()
+
 
