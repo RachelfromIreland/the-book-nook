@@ -17,7 +17,7 @@ books = SHEET.worksheet('Books')
 users = SHEET.worksheet('Users')
 transactions = SHEET.worksheet('Transactions')
 
-def is_new_user():
+def login():
     """
     Checks to see if a user has registered before and if not will call a funtion to create an account.
     Logs in existing users
