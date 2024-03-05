@@ -29,8 +29,9 @@ def is_book_available():
 
         if validate_title(title):
             print("Book found! Checking availability...")
+            get_book_info(title)
 
-        return title
+            return title
     
 
 def validate_title(title):
@@ -43,7 +44,23 @@ def validate_title(title):
             raise ValueError(f"The book '{title}' was not found in the library.\nPlease check spelling and try again.")
         
     except ValueError as e:
-        print(f"Invalid data: {e}, please try again.\n")
+        print(f"Sorry! {e}\n")
         return False
     
     return True
+
+def get_book_info(title):
+    """
+    Checks book info after book title is found, returns date available to user
+    """
+    books = SHEET.worksheet('Books')
+    book_info = books.find(title)
+    is_available = books.cell(book_info.row, 3)
+    date_for_book = books.cell(book_info.row, 5).value
+
+    if is_available == "Yes":
+        print(f"The book '{title}' is available!")
+    else:
+        print(f"The book '{title}' is checked out.\nIt will be available again on {date_for_book}.")
+
+is_book_available()
