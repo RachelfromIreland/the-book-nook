@@ -60,7 +60,40 @@ def get_book_info(title):
 
     if is_available == "Yes":
         print(f"The book '{title}' is available!")
+        is_new_user()
     else:
         print(f"The book '{title}' is checked out.\nIt will be available again on {date_for_book}.")
+
+def is_new_user():
+    """
+    Checks to see if a user has registered before and if not will call a funtion to create an account.
+    Logs in existing users
+    """
+    print("Have you borrowed from The Book Nook before? (yes/no)")
+    new_user = input().lower()
+
+    #If new user will be prompted to create an account.  WRITE NEW ACCOUNT FUNCTION LATER
+    if new_user == "no":
+        print("You will need to create an account.")
+
+    #If existing user will be prompted to log in and info checked against users sheet
+    #Checking username and password against spreadsheet adapted from stackoverflow - link in README
+    elif new_user == "yes":
+        print("Please enter your username and password below.")
+        username = input("Username: ")
+        password = input("Password: ")
+
+        user_info = users.get_all_values()
+        for info in user_info[1:]:
+            if info[0] == username and info[5] ==password:
+                print("User logged in.")
+                return username, password
+        
+        print("No record of user, must create account to continue.")
+        return is_new_user()
+    
+    else:
+        print("Please only enter 'yes' or 'no'.")
+        return is_new_user()
 
 is_book_available()
