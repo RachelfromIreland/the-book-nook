@@ -91,14 +91,29 @@ def get_book_info(title):
     """
     books = SHEET.worksheet('Books')
     book_info = books.find(title)
-    is_available = books.cell(book_info.row, 3)
+    book_availablity = books.cell(book_info.row, 3)
     date_for_book = books.cell(book_info.row, 5).value
 
-    if is_available == "Yes":
+    if book_availablity == "Yes":
         print(f"The book '{title}' is available!")
+
 
     else:
         print(f"The book '{title}' is checked out.\nIt will be available again on {date_for_book}.")
+
+def borrow_book(title, username):
+    print("Would you like to borrow this book? (yes/no)")
+    wants_book = input().lower()
+
+    if wants_book == "yes":
+        update_books_borrowed(title, username)
+
+    elif wants_book == "no":
+        is_book_available()
+
+    else:
+        print("Please answer 'yes' or 'no'.")
+
 
 def update_books_borrowed(title, username):
     """
@@ -111,8 +126,14 @@ def update_books_borrowed(title, username):
     today = datetime.now().date()
     return_date = today + timedelta(days=14)
 
-    print(return_date)
+    #Update book availability to "no", add username and return date to relevant cells
+    books.update_cell(borrowed_book.row, 3, "No")
+    books.update_cell(borrowed_book.row, 4, username)
+    books.update_cell(borrowed_book.row, 5, return_date)
+
+    print(f"You have borrowed {title}.\nThis book is due back on {return_date}.\nThank you for using the Book Nook!")
 
 print("Welcome to The Book Nook!\nBorrow from our vast range of classic books.")
-#is_new_user()
-#is_book_available()
+is_new_user()
+is_book_available()
+
