@@ -1,5 +1,6 @@
 import gspread
 from google.oauth2.service_account import Credentials
+from datetime import datetime, timedelta
 
 SCOPE = [
     "https://www.googleapis.com/auth/spreadsheets",
@@ -99,8 +100,19 @@ def get_book_info(title):
     else:
         print(f"The book '{title}' is checked out.\nIt will be available again on {date_for_book}.")
 
+def update_books_borrowed(title, username):
+    """
+    Update the Books sheet if a user checks out a book
+    """
+
+    borrowed_book = books.find(title)
+
+    #Get current date and calculate return date - learned from geeksforgeeks - link in README
+    today = datetime.now().date()
+    return_date = today + timedelta(days=14)
+
+    print(return_date)
 
 print("Welcome to The Book Nook!\nBorrow from our vast range of classic books.")
-is_new_user()
-is_book_available()
+#is_new_user()
 #is_book_available()
