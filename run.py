@@ -277,7 +277,7 @@ def get_book_info(title, username):
     else:
         print(f"The book '{title}' is checked out.\n"
               f"It will be available again on {date_for_book}.")
-        is_book_available()
+        is_book_available(username)
 
 
 def borrow_book(title, username):
