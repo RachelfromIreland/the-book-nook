@@ -321,6 +321,27 @@ def update_books_borrowed(title, username):
     print(f"You have borrowed {title}.\nThis book is due back on "
           f"{return_date_str}.\nThank you for using the Book Nook!")
 
+    another_book(username)
+
+
+def another_book(username):
+    """
+    Gives the user the option to select another book after checking one out
+    """
+    print("Would you like to select another book? (yes/no)")
+    extra_book = input().lower()
+
+    # If new user will be prompted to create an account.
+    if extra_book == "no":
+        print("Thank you for using The Book Nook.")
+        main()
+
+    elif extra_book == "yes":
+        is_book_available(username)
+
+    else:
+        print("Please only enter 'yes' or 'no'.")
+
 
 def main():
     """
