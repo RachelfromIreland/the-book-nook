@@ -59,7 +59,8 @@ def login():
     """
     Checks to see if a user has registered before and if not will call a
     function to create an account.
-    Logs in existing users
+    Logs in existing users, users have 3 attempts to log in and will then
+    be able to create a new account if desired
     """
     print("Have you borrowed from The Book Nook before? (yes/no)")
     past_user = input().lower()
@@ -85,7 +86,7 @@ def login():
                 is_book_available(username)
                 return username, password
 
-        print("No record of user, must create account to continue.")
+        print("Check your details are correct, or create account to continue.")
         login()
 
     else:
@@ -277,6 +278,7 @@ def get_book_info(title, username):
     else:
         print(f"The book '{title}' is checked out.\n"
               f"It will be available again on {date_for_book}.")
+        is_book_available()
 
 
 def borrow_book(title, username):
@@ -321,6 +323,13 @@ def update_books_borrowed(title, username):
           "{return_date}.\nThank you for using the Book Nook!")
 
 
-update_returns()
-print("Welcome to The Book Nook!\nBorrow from our range of classic books.")
-login()
+def main():
+    """
+    Run all program functions
+    """
+    update_returns()
+    print("Welcome to The Book Nook!\nBorrow from our range of classic books.")
+    login()
+
+
+main()
