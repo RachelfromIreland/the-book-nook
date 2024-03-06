@@ -32,12 +32,13 @@ def update_returns():
     books_on_loan = books.get_all_records()
 
     for book in books_on_loan:
-        if book[2] == "No":
-            return_date = book[4]
-            date = datetime.strptime(return_date, "%Y:%m:%d").date()
+        return_date_cell = book["Return Date"]
 
-            if date < today:
-                books.update_cell(book, 2, "Yes")
+        # Convert date string to date
+        return_date = datetime.strptime(return_date_cell, "%Y:%m:%d").date()
+
+        if return_date < today:
+            books.update_cell(book["ID"], "Available", "Yes")
 
 
 def login():
