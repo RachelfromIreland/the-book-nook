@@ -101,8 +101,8 @@ def create_account():
     print("Separate lines in your shipping address with a comma.")
 
     username = input("Username: ")
-    name = input("Full name: ")
-    validate_name_input(name)
+    # name = input("Full name: ")
+    name = validate_name_input()
 
     email = input("Email: ")
     address = input("Address: ")
@@ -126,17 +126,31 @@ def validate_input_length(prompt):
         print("Please try again using 100 characters or less")
 
 
-def validate_name_input(name):
+def validate_name_input():
     """
     Validates Name input to check it only uses albhabetic characters
     """
-    while not name.isalpha() or len(name) > 50:
-        print("Please use only alphabetic characters."
-              "Check name is less than 50 characters long.")
-        name = input("Full name: ")
+    # while not name.isalpha() or len(name) > 50:
+    #    print("Please use only alphabetic characters."
+    #         "Check name is less than 50 characters long.")
+    #   name = input("Full name: ")
 
     # while len(name) > 100:
-        # print("Check name is less than 100 characters long.")
+    # print("Check name is less than 100 characters long.")
+    while True:
+        try:
+            name = input("Full name: ")
+            # Checking to see if only alpabetic and spaces
+            # Learned from stackoverflow - link in README
+            if not all(char.isalpha() or char.isspace() for char in name):
+                raise ValueError("Please use only alphabetic characters.")
+
+            if len(name) > 50:
+                raise ValueError(
+                    "Name should be less than 50 characters long.")
+            return name
+        except ValueError as e:
+            print(e)
 
 
 def is_book_available(username):
