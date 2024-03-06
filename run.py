@@ -333,7 +333,7 @@ def another_book(username):
 
     # If new user will be prompted to create an account.
     if extra_book == "no":
-        print("Thank you for using The Book Nook.")
+        print("Thank you for using The Book Nook.\n")
         main()
 
     elif extra_book == "yes":
