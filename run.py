@@ -63,14 +63,14 @@ def is_book_available(username):
 
         title = input("Enter book title here: ")
 
-        if validate_title(title):
+        if check_title(title):
             print("Book found! Checking availability...")
             get_book_info(title, username)
 
             return title, username
     
 
-def validate_title(title):
+def check_title(title):
     """
     Check if provided book title exists in the books spreadsheet
     """
@@ -103,6 +103,9 @@ def get_book_info(title, username):
         print(f"The book '{title}' is checked out.\nIt will be available again on {date_for_book}.")
 
 def borrow_book(title, username):
+    """
+    Asks the user if they would like to borrow the selected book
+    """
     print("Would you like to borrow this book? (yes/no)")
     wants_book = input().lower()
 
@@ -138,6 +141,6 @@ def update_books_borrowed(title, username):
     print(f"You have borrowed {title}.\nThis book is due back on {return_date}.\nThank you for using the Book Nook!")
 
 print("Welcome to The Book Nook!\nBorrow from our vast range of classic books.")
-is_new_user()
+login()
 
 
