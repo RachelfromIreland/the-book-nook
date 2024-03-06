@@ -86,11 +86,11 @@ def login():
                 return username, password
 
         print("No record of user, must create account to continue.")
-        return login()
+        login()
 
     else:
         print("Please only enter 'yes' or 'no'.")
-        return login()
+        login()
 
 
 def create_account():
@@ -98,9 +98,8 @@ def create_account():
     Allows a new user to create an account
     """
     print("Please enter your details using the prompts below.")
-    print("Separate lines in your shipping address with a comma.")
 
-    username = input("Username: ")
+    username = validate_username_input()
     name = validate_name_input()
     email = validate_email_input()
     address = validate_address_input()
@@ -110,7 +109,7 @@ def create_account():
     # Add inputs from user to the Users sheet
     users.append_row([username, name, email, address, phone, password])
 
-    print("Thank you! Your account has been created and you can search books")
+    print("\nThank you! Your account has been created and you can search books")
 
     is_book_available(username)
     return username, password
@@ -124,13 +123,37 @@ def validate_input_length(prompt):
         print("Please try again using 100 characters or less")
 
 
-def validate_name_input():
+def validate_username_input():
     """
-    Validates Name input to check it only uses albhabetic characters
+    Validates username to check it isn't already in the users spreadsheet
+    and checks length is less than 20 characters
     """
     while True:
         try:
-            name = input("Full name: ")
+            username = input("\nUsername: ")
+
+            # Check if username already exists in spreadsheet
+            if username in [user[0] for user in users.get_all_values()[1:]]:
+                raise ValueError("Sorry, that username is taken.  Please try"
+                                 " another.")
+
+            if len(username) > 20:
+                raise ValueError("Username must be 20 characters or less.")
+
+            return username
+
+        except ValueError as e:
+            print(e)
+
+
+def validate_name_input():
+    """
+    Validates Name input to check it only uses albhabetic characters
+    and is less than 50 characters long
+    """
+    while True:
+        try:
+            name = input("\nFull name: ")
             # Checking to see if only alpabetic and spaces
             # Learned from stackoverflow - link in README
             if not all(char.isalpha() or char.isspace() for char in name):
@@ -146,11 +169,12 @@ def validate_name_input():
 
 def validate_email_input():
     """
-    Validates Email input to check it contains @ and is less than 50 chars
+    Validates Email input to check it contains @ and is less than 50
+    characters long
     """
     while True:
         try:
-            email = input("Email: ")
+            email = input("\nEmail: ")
 
             if "@" not in email:
                 raise ValueError("Please enter a valid email.")
@@ -165,8 +189,10 @@ def validate_email_input():
 
 def validate_address_input():
     """
-    Validates Address input to check it contains ',' and is less than 100 chars
+    Validates Address input to check it contains ','
+    and is less than 100 characters long
     """
+    print("\nPlease separate lines in your shipping address with a comma.")
     while True:
         try:
             address = input("Address: ")
@@ -185,11 +211,12 @@ def validate_address_input():
 
 def validate_phone_input():
     """
-    Validates Phone input to check if numeric and is less than 15 chars
+    Validates Phone input to check if numeric
+    and is less than 15 characters long
     """
     while True:
         try:
-            phone = input("Phone: ")
+            phone = input("\nPhone: ")
 
             if not phone.isnumeric() or len(phone) > 12:
                 raise ValueError("Please enter a valid phone number.")
