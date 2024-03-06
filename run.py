@@ -23,13 +23,20 @@ users = SHEET.worksheet('Users')
 
 def update_returns():
     """
-    Function to iterate through books spreadsheet and reset borrower information
-    if past the return date
+    Function to iterate through books spreadsheet and reset borrower 
+    information if past the return date
     """
     today = datetime.now().date()
 
     # Find borrowed books by availabile column
-    on_loan = books.findall("No")
+    books_on_loan = books.findall("No")
+
+    for book in books_on_loan:
+        book_info = book.row
+        return_date = books.cell(book_info, 2).value
+
+        if return_date < today:
+            books.update_cell(book_info, 2, "Yes")
 
 
 def login():
@@ -187,5 +194,6 @@ def update_books_borrowed(title, username):
           "{return_date}.\nThank you for using the Book Nook!")
 
 
+update_returns()
 print("Welcome to The Book Nook!\nBorrow from our range of classic books.")
 login()
