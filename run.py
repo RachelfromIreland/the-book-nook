@@ -37,7 +37,7 @@ def update_returns():
         if return_date_value.strip():
             # Convert date string to date
             return_date = datetime.strptime(
-                return_date_value, "%m:%d:%Y").date()
+                return_date_value, "%d-%m-%Y").date()
 
             # Updating spreadsheet learned from Youtube, link in README
             # Set availability to Yes if past return date
@@ -310,7 +310,7 @@ def update_books_borrowed(title, username):
     return_date = today + timedelta(days=14)
 
     # Convert return date to a string - learned from programiz - link in README
-    return_date_str = return_date.strftime("%m:%d:%Y")
+    return_date_str = return_date.strftime("%d-%m-%Y")
 
     # Update book availability to "no"
     # Add username and return date to relevant cells
