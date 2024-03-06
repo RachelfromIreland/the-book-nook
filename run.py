@@ -310,7 +310,7 @@ def update_books_borrowed(title, username):
     return_date = today + timedelta(days=14)
 
     # Convert return date to a string - learned from programiz - link in README
-    return_date_str = return_date.strftime("%Y:%m:%d")
+    return_date_str = return_date.strftime("%d:%m:%Y")
 
     # Update book availability to "no"
     # Add username and return date to relevant cells
