@@ -1,3 +1,6 @@
+"""
+Imports for python to run the program
+"""
 from datetime import datetime, timedelta
 import gspread
 from google.oauth2.service_account import Credentials
