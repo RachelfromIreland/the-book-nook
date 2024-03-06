@@ -19,7 +19,6 @@ SHEET = GSPREAD_CLIENT.open('the-book-nook')
 
 books = SHEET.worksheet('Books')
 users = SHEET.worksheet('Users')
-transactions = SHEET.worksheet('Transactions')
 
 
 def login():
@@ -78,6 +77,9 @@ def create_account():
     users.append_row([username, name, email, address, phone, password])
 
     print("Thank you! Your account has been created and you can search books")
+
+    is_book_available(username)
+    return username, password
 
 
 def is_book_available(username):
