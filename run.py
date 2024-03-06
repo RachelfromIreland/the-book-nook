@@ -101,12 +101,10 @@ def create_account():
     print("Separate lines in your shipping address with a comma.")
 
     username = input("Username: ")
-    # name = input("Full name: ")
     name = validate_name_input()
-
-    email = input("Email: ")
-    address = input("Address: ")
-    phone = input("Phone: ")
+    email = validate_email_input()
+    address = validate_address_input()
+    phone = validate_phone_input()
     password = input("Password: ")
 
     # Add inputs from user to the Users sheet
@@ -142,6 +140,61 @@ def validate_name_input():
                 raise ValueError(
                     "Name should be less than 50 characters long.")
             return name
+        except ValueError as e:
+            print(e)
+
+
+def validate_email_input():
+    """
+    Validates Email input to check it contains @ and is less than 50 chars
+    """
+    while True:
+        try:
+            email = input("Email: ")
+
+            if "@" not in email:
+                raise ValueError("Please enter a valid email.")
+
+            if len(email) > 50:
+                raise ValueError(
+                    "Email should be less than 50 characters long.")
+            return email
+        except ValueError as e:
+            print(e)
+
+
+def validate_address_input():
+    """
+    Validates Address input to check it contains ',' and is less than 100 chars
+    """
+    while True:
+        try:
+            address = input("Address: ")
+
+            if "," not in address:
+                raise ValueError("Please separate address lines with a comma"
+                                 "(,) for shipping.")
+
+            if len(address) > 100:
+                raise ValueError(
+                    "Address should be less than 100 characters long.")
+            return address
+        except ValueError as e:
+            print(e)
+
+
+def validate_phone_input():
+    """
+    Validates Phone input to check if numeric and is less than 15 chars
+    """
+    while True:
+        try:
+            phone = input("Phone: ")
+
+            if not phone.isnumeric() or len(phone) > 12:
+                raise ValueError("Please enter a valid phone number.")
+
+            return phone
         except ValueError as e:
             print(e)
 
