@@ -67,6 +67,18 @@ def create_account():
     print("Please enter your details using the prompts below.")
     print("Separate lines in your shipping address with a comma.")
 
+    username = input("Username: ")
+    name = input("Full name: ")
+    email = input("Email: ")
+    address = input("Address: ")
+    phone = input("Phone: ")
+    password = input("Password: ")
+
+    # Add inputs from user to the Users sheet
+    users.append_row([username, name, email, address, phone, password])
+
+    print("Thank you! Your account has been created and you can search books")
+
 
 def is_book_available(username):
     """
