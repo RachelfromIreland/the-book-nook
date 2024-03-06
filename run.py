@@ -37,7 +37,7 @@ def update_returns():
         if return_date_value.strip():
             # Convert date string to date
             return_date = datetime.strptime(
-                return_date_value, "%Y:%m:%d").date()
+                return_date_value, "%d:%m:%d").date()
 
             # Updating spreadsheet learned from Youtube, link in README
             # Set availability to Yes if past return date
