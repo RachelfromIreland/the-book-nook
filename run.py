@@ -39,6 +39,7 @@ def update_returns():
             return_date = datetime.strptime(
                 return_date_value, "%Y:%m:%d").date()
 
+            # Updating spreadsheet learned from Youtube, link in README
             # Set availability to Yes if past return date
             if return_date < today:
                 books.update_cell(
@@ -101,6 +102,8 @@ def create_account():
 
     username = input("Username: ")
     name = input("Full name: ")
+    validate_name_input(name)
+
     email = input("Email: ")
     address = input("Address: ")
     phone = input("Phone: ")
@@ -113,6 +116,27 @@ def create_account():
 
     is_book_available(username)
     return username, password
+
+
+def validate_input_length(prompt):
+    """
+    When called ensures input has 100 characters or less
+    """
+    while len(prompt) > 100:
+        print("Please try again using 100 characters or less")
+
+
+def validate_name_input(name):
+    """
+    Validates Name input to check it only uses albhabetic characters
+    """
+    while not name.isalpha() or len(name) > 50:
+        print("Please use only alphabetic characters."
+              "Check name is less than 50 characters long.")
+        name = input("Full name: ")
+
+    # while len(name) > 100:
+        # print("Check name is less than 100 characters long.")
 
 
 def is_book_available(username):
