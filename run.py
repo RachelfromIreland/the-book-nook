@@ -59,8 +59,7 @@ def login():
     """
     Checks to see if a user has registered before and if not will call a
     function to create an account.
-    Logs in existing users, users have 3 attempts to log in and will then
-    be able to create a new account if desired
+    Logs in existing users.
     """
     print("Have you borrowed from The Book Nook before? (yes/no)")
     past_user = input().lower()
