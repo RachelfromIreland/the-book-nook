@@ -43,13 +43,15 @@ def update_returns():
             if return_date < today:
                 books.update_cell(
                     books_data.index(row) + 2, 3, "Yes")
-                
 
-
+                # Clear username and return date if book is available
+                books.update_cell(
+                    books_data.index(row) + 2, 4, "")
+                books.update_cell(
+                    books_data.index(row) + 2, 5, "")
 
         else:
             continue
-        print("It works")
 
 
 def login():
