@@ -29,14 +29,15 @@ def update_returns():
     today = datetime.now().date()
 
     # Find borrowed books by availabile column
-    books_on_loan = books.findall("No")
+    books_on_loan = books.get_all_records()
 
     for book in books_on_loan:
-        book_info = book.row
-        return_date = books.cell(book_info, 2).value
+        if book[2] == "No":
+            return_date = book[4]
+            date = datetime.strptime(return_date, "%Y:%m:%d").date()
 
-        if return_date < today:
-            books.update_cell(book_info, 2, "Yes")
+            if date < today:
+                books.update_cell(book, 2, "Yes")
 
 
 def login():
