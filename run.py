@@ -31,6 +31,7 @@ def login():
     # If new user will be prompted to create an account.
     if past_user == "no":
         print("You will need to create an account.")
+        create_account()
 
     # If existing user will be prompted to log in and info checked against
     # users sheet
@@ -54,6 +55,14 @@ def login():
     else:
         print("Please only enter 'yes' or 'no'.")
         return login()
+
+
+def create_account():
+    """
+    Allows a new user to create an account
+    """
+    Print("Please enter your details using the prompts below.")
+    Print("Separate lines in your shipping address with a comma.")
 
 
 def is_book_available(username):
