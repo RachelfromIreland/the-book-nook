@@ -21,6 +21,17 @@ books = SHEET.worksheet('Books')
 users = SHEET.worksheet('Users')
 
 
+def update_returns():
+    """
+    Function to iterate through books spreadsheet and reset borrower information
+    if past the return date
+    """
+    today = datetime.now().date()
+
+    # Find borrowed books by availabile column
+    on_loan = books.findall("No")
+
+
 def login():
     """
     Checks to see if a user has registered before and if not will call a
