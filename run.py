@@ -319,7 +319,7 @@ def update_books_borrowed(title, username):
     books.update_cell(borrowed_book.row, 5, return_date_str)
 
     print(f"You have borrowed {title}.\nThis book is due back on"
-          "{return_date}.\nThank you for using the Book Nook!")
+          f"{return_date_str}.\nThank you for using the Book Nook!")
 
 
 def main():
