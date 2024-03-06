@@ -28,17 +28,28 @@ def update_returns():
     """
     today = datetime.now().date()
 
-    # Find borrowed books by availabile column
-    books_on_loan = books.get_all_records()
+    # Get all values except header from Books
+    books_data = books.get_all_values()[1:]
 
-    for book in books_on_loan:
-        return_date_cell = book["Return Date"]
+    for row in books_data:
+        return_date_value = row[4]
 
-        # Convert date string to date
-        return_date = datetime.strptime(return_date_cell, "%Y:%m:%d").date()
+        if return_date_value.strip():
+            # Convert date string to date
+            return_date = datetime.strptime(
+                return_date_value, "%Y:%m:%d").date()
 
-        if return_date < today:
-            books.update_cell(book["ID"], "Available", "Yes")
+            # Set availability to Yes if past return date
+            if return_date < today:
+                books.update_cell(
+                    books_data.index(row) + 2, 3, "Yes")
+                
+
+
+
+        else:
+            continue
+        print("It works")
 
 
 def login():
