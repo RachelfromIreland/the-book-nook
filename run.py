@@ -1,6 +1,7 @@
+from datetime import datetime, timedelta
 import gspread
 from google.oauth2.service_account import Credentials
-from datetime import datetime, timedelta
+
 
 SCOPE = [
     "https://www.googleapis.com/auth/spreadsheets",
