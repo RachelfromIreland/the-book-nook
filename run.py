@@ -61,8 +61,8 @@ def create_account():
     """
     Allows a new user to create an account
     """
-    Print("Please enter your details using the prompts below.")
-    Print("Separate lines in your shipping address with a comma.")
+    print("Please enter your details using the prompts below.")
+    print("Separate lines in your shipping address with a comma.")
 
 
 def is_book_available(username):
