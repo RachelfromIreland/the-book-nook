@@ -23,7 +23,7 @@ users = SHEET.worksheet('Users')
 
 def update_returns():
     """
-    Function to iterate through books spreadsheet and reset borrower 
+    Function to iterate through books spreadsheet and reset borrower
     information if past the return date
     """
     today = datetime.now().date()
