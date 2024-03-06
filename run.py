@@ -109,7 +109,8 @@ def create_account():
     # Add inputs from user to the Users sheet
     users.append_row([username, name, email, address, phone, password])
 
-    print("\nThank you! Your account has been created and you can search books")
+    print("\nThank you! Your account has been created "
+          "and you can search books")
 
     is_book_available(username)
     return username, password
