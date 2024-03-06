@@ -130,13 +130,6 @@ def validate_name_input():
     """
     Validates Name input to check it only uses albhabetic characters
     """
-    # while not name.isalpha() or len(name) > 50:
-    #    print("Please use only alphabetic characters."
-    #         "Check name is less than 50 characters long.")
-    #   name = input("Full name: ")
-
-    # while len(name) > 100:
-    # print("Check name is less than 100 characters long.")
     while True:
         try:
             name = input("Full name: ")
