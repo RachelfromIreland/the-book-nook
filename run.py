@@ -104,7 +104,7 @@ def create_account():
     email = validate_email_input()
     address = validate_address_input()
     phone = validate_phone_input()
-    password = input("Password: ")
+    password = validate_password_input()
 
     # Add inputs from user to the Users sheet
     users.append_row([username, name, email, address, phone, password])
@@ -114,14 +114,6 @@ def create_account():
 
     is_book_available(username)
     return username, password
-
-
-def validate_input_length(prompt):
-    """
-    When called ensures input has 100 characters or less
-    """
-    while len(prompt) > 100:
-        print("Please try again using 100 characters or less")
 
 
 def validate_username_input():
@@ -223,6 +215,39 @@ def validate_phone_input():
                 raise ValueError("Please enter a valid phone number.")
 
             return phone
+        except ValueError as e:
+            print(e)
+
+
+def validate_password_input():
+    """
+    Validates Password input to check it contains both
+    upper and lowercase letters, a number and is at least 8
+    characters long
+    """
+    while True:
+        try:
+            print("Password must contain upper and lower case and at least"
+                  "one digit.")
+            password = input("\nPassword: ")
+
+            # Checks for length, both cases and a digit
+            if len(password) < 8:
+                raise ValueError(
+                    "Password must be at least 8 characters long.")
+
+            if not any(character.islower() for character in password):
+                raise ValueError("Password must contain at least one"
+                                 " lowercase letter.")
+
+            if not any(character.isupper() for character in password):
+                raise ValueError("Password must contain at least one"
+                                 " uppercase letter.")
+
+            if not any(character.isnumeric() for character in password):
+                raise ValueError("Password must contain at least one"
+                                 " digit.")
+            return password
         except ValueError as e:
             print(e)
 
