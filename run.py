@@ -284,7 +284,8 @@ def check_title(title):
         book_list = SHEET.worksheet('Books')
         if not book_list.find(title):
             raise ValueError(f"The book '{title}' was not found in the"
-                             f"library.\nPlease check spelling and try again.")
+                             f"library.\nPlease check spelling and try again."
+                             f"\nNOTE! Titles are case sensitive")
 
     except ValueError as e:
         print(f"Sorry! {e}\n")
