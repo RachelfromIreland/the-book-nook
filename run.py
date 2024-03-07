@@ -5,7 +5,7 @@ from datetime import datetime, timedelta
 import gspread
 from google.oauth2.service_account import Credentials
 import colorama
-from colorama import Fore, Back, Style
+from colorama import Fore, Style
 
 # Initialise colorama
 colorama.init()
@@ -201,8 +201,9 @@ def validate_address_input():
     Validates Address input to check it contains ','
     and is less than 100 characters long
     """
-    print(Back.YELLOW + Style.DIM +
+    print(Fore.YELLOW + Style.BRIGHT +
           "\nPlease separate lines in your shipping address with a comma.")
+    print(Style.RESET_ALL)
     while True:
         try:
             address = input("Address: ")
