@@ -258,10 +258,16 @@ def is_book_available(username):
     Run a while loop to get a book input that exists in the library
     """
     while True:
-        print("Please enter the name of the book you wish to check.")
+        print("Please enter the name of the book you wish to check, or enter"
+              " 'exit' to Exit.")
+
         print("Ensure the title you input appears as it does on the book.")
 
         title = input("Enter book title here: ")
+
+        if title.lower() == 'exit':
+            print("\nThank you for visiting.  Returning to main menu...\n")
+            login()
 
         if check_title(title):
             print("Book found! Checking availability...")
