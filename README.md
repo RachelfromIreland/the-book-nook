@@ -160,6 +160,7 @@ The live link can be found [here](https://the-book-nook-f0acb363dd7b.herokuapp.c
 - I would also like to implement a feature where a user can search for books by author, right now searches can only be completed by book name.
 - I would also like to give users more leeway when searching for books.  I think this is important from an accessibility standpoint as right now the title needs to be searched exactly as it appears in the spreadsheet.  Being able to incorporate all cases and even minor spelling mistakes when searching would improve the user experience.
 - For future projects, I would like to improve my commit messages.  I was very focused at the beginning of the project and would write a function and change it until it worked and then commit it.  This resulted in one commit message per function, which I think can be improved on next time.
+- I would refactor the validation functions, some elements are repetitive and this would improve readability.  This was not done for the project due to time constraints.
 
 ## Credit
 - Using `strftime()` learned from [Programiz](https://www.programiz.com/python-programming/datetime/strftime).
