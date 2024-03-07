@@ -4,7 +4,10 @@ Imports for python to run the program
 from datetime import datetime, timedelta
 import gspread
 from google.oauth2.service_account import Credentials
+import colorama
+from colorama import Fore, Back, Style
 
+colorama.init()
 
 SCOPE = [
     "https://www.googleapis.com/auth/spreadsheets",
@@ -61,7 +64,9 @@ def login():
     function to create an account.
     Logs in existing users.
     """
-    print("Have you borrowed from The Book Nook before? (yes/no)")
+    print(Fore.CYAN + Style.BRIGHT +
+          "Have you borrowed from The Book Nook before? (yes/no)")
+    print(Style.RESET_ALL)
     past_user = input().lower()
 
     # If new user will be prompted to create an account.
@@ -81,15 +86,19 @@ def login():
         user_info = users.get_all_values()
         for info in user_info[1:]:
             if info[0] == username and info[5] == password:
-                print("User logged in.")
+                print(Fore.GREEN + Style.BRIGHT + "User logged in.")
+                print(Style.RESET_ALL)
                 is_book_available(username)
                 return username, password
 
-        print("Check your details are correct, or create account to continue.")
+        print(Fore.RED + Style.BRIGHT +
+              "Check your details are correct, or create account to continue.")
+        print(Style.RESET_ALL)
         login()
 
     else:
-        print("Please only enter 'yes' or 'no'.")
+        print(Fore.RED + Style.BRIGHT + "Please only enter 'yes' or 'no'.")
+        print(Style.RESET_ALL)
         login()
 
 
@@ -109,8 +118,10 @@ def create_account():
     # Add inputs from user to the Users sheet
     users.append_row([username, name, email, address, phone, password])
 
-    print("\nThank you! Your account has been created "
+    print(Fore.GREEN + Style.BRIGHT +
+          "\nThank you! Your account has been created "
           "and you can search books")
+    print(Style.RESET_ALL)
 
     is_book_available(username)
     return username, password
@@ -136,7 +147,8 @@ def validate_username_input():
             return username
 
         except ValueError as e:
-            print(e)
+            print(Fore.RED + Style.BRIGHT + str(e))
+            print(Style.RESET_ALL)
 
 
 def validate_name_input():
@@ -157,7 +169,8 @@ def validate_name_input():
                     "Name should be less than 50 characters long.")
             return name
         except ValueError as e:
-            print(e)
+            print(Fore.RED + Style.BRIGHT + str(e))
+            print(Style.RESET_ALL)
 
 
 def validate_email_input():
@@ -177,7 +190,8 @@ def validate_email_input():
                     "Email should be less than 50 characters long.")
             return email
         except ValueError as e:
-            print(e)
+            print(Fore.RED + Style.BRIGHT + str(e))
+            print(Style.RESET_ALL)
 
 
 def validate_address_input():
@@ -185,7 +199,8 @@ def validate_address_input():
     Validates Address input to check it contains ','
     and is less than 100 characters long
     """
-    print("\nPlease separate lines in your shipping address with a comma.")
+    print(Back.YELLOW + Style.DIM +
+          "\nPlease separate lines in your shipping address with a comma.")
     while True:
         try:
             address = input("Address: ")
@@ -199,7 +214,8 @@ def validate_address_input():
                     "Address should be less than 100 characters long.")
             return address
         except ValueError as e:
-            print(e)
+            print(Fore.RED + Style.BRIGHT + str(e))
+            print(Style.RESET_ALL)
 
 
 def validate_phone_input():
@@ -216,7 +232,8 @@ def validate_phone_input():
 
             return phone
         except ValueError as e:
-            print(e)
+            print(Fore.RED + Style.BRIGHT + str(e))
+            print(Style.RESET_ALL)
 
 
 def validate_password_input():
@@ -246,7 +263,8 @@ def validate_password_input():
             return password
 
         except ValueError as e:
-            print(e)
+            print(Fore.RED + Style.BRIGHT + str(e))
+            print(Style.RESET_ALL)
 
 
 def is_book_available(username):
@@ -258,7 +276,9 @@ def is_book_available(username):
         print("Please enter the name of the book you wish to check, or enter"
               " 'exit' to Exit.")
 
-        print("Ensure the title you input appears as it does on the book.")
+        print(Fore.YELLOW + Style.BRIGHT +
+              "Ensure the title you input appears as it does on the book.")
+        print(Style.RESET_ALL)
 
         title = input("Enter book title here: ")
 
@@ -267,7 +287,9 @@ def is_book_available(username):
             login()
 
         if check_title(title):
-            print("Book found! Checking availability...")
+            print(Fore.GREEN + Style.BRIGHT +
+                  "Book found! Checking availability...")
+            print(Style.RESET_ALL)
             get_book_info(title, username)
 
             return title, username
@@ -285,7 +307,8 @@ def check_title(title):
                              f"\nNOTE! Titles are case sensitive")
 
     except ValueError as e:
-        print(f"Sorry! {e}\n")
+        print(Fore.YELLOW + Style.BRIGHT + f"Sorry! {e}\n")
+        print(Style.RESET_ALL)
         return False
 
     return True
@@ -300,12 +323,15 @@ def get_book_info(title, username):
     date_for_book = books.cell(book_info.row, 5).value
 
     if book_availablity.value == "Yes":
-        print(f"The book '{title}' is available!")
+        print(Fore.GREEN + Style.BRIGHT + f"The book '{title}' is available!")
+        print(Style.RESET_ALL)
         borrow_book(title, username)
 
     else:
-        print(f"The book '{title}' is checked out.\n"
+        print(Fore.YELLOW + Style.BRIGHT +
+              f"The book '{title}' is checked out.\n"
               f"It will be available again on {date_for_book}.")
+        print(Style.RESET_ALL)
         another_book(username)
 
 
@@ -323,7 +349,8 @@ def borrow_book(title, username):
         is_book_available(username)
 
     else:
-        print("Please answer 'yes' or 'no'.")
+        print(Fore.RED + Style.BRIGHT + "Please answer 'yes' or 'no'.")
+        print(Style.RESET_ALL)
 
 
 def update_books_borrowed(title, username):
@@ -347,8 +374,10 @@ def update_books_borrowed(title, username):
     books.update_cell(borrowed_book.row, 4, username)
     books.update_cell(borrowed_book.row, 5, return_date_str)
 
-    print(f"You have borrowed {title}.\nThis book is due back on "
+    print(Fore.GREEN + Style.BRIGHT +
+          f"You have borrowed {title}.\nThis book is due back on "
           f"{return_date_str}.\nThank you for using the Book Nook!")
+    print(Style.RESET_ALL)
 
     another_book(username)
 
@@ -377,7 +406,9 @@ def main():
     Run all program functions
     """
     update_returns()
-    print("Welcome to The Book Nook!\nBorrow from our range of classic books.")
+    print(Back.CYAN + Style.DIM +
+          "Welcome to The Book Nook!\nBorrow from our range of classic books.")
+    print(Style.RESET_ALL)
     login()
 
 
