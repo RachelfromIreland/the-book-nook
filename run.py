@@ -406,7 +406,7 @@ def main():
     Run all program functions
     """
     update_returns()
-    print(Back.CYAN + Style.DIM +
+    print(Back.CYAN + Style.BRIGHT +
           "Welcome to The Book Nook!\nBorrow from our range of classic books.")
     print(Style.RESET_ALL)
     login()
