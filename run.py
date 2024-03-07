@@ -7,6 +7,7 @@ from google.oauth2.service_account import Credentials
 import colorama
 from colorama import Fore, Back, Style
 
+# Initialise colorama
 colorama.init()
 
 SCOPE = [
@@ -20,6 +21,7 @@ SCOPED_CREDS = CREDS.with_scopes(SCOPE)
 GSPREAD_CLIENT = gspread.authorize(SCOPED_CREDS)
 SHEET = GSPREAD_CLIENT.open('the-book-nook')
 
+# Global variables to access spreadsheets
 books = SHEET.worksheet('Books')
 users = SHEET.worksheet('Users')
 
@@ -406,7 +408,7 @@ def main():
     Run all program functions
     """
     update_returns()
-    print(Back.CYAN + Style.BRIGHT +
+    print(Fore.CYAN + Style.BRIGHT +
           "Welcome to The Book Nook!\nBorrow from our range of classic books.")
     print(Style.RESET_ALL)
     login()
