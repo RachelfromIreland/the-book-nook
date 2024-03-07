@@ -99,8 +99,7 @@ def create_account():
     """
     print("Please enter your details using the prompts below.")
 
-    username = validate_input("\nUsername:", validate_username_input)
-    # username = validate_username_input()
+    username = validate_username_input()
     name = validate_name_input()
     email = validate_email_input()
     address = validate_address_input()
@@ -117,46 +116,27 @@ def create_account():
     return username, password
 
 
-def validate_input(text_from_input, validation_function):
-    """
-    Function to validate user input based on validation functions below
-    """
-    while True:
-        try:
-            user_input = input(text_from_input)
-            validation_function(user_input)
-            return user_input
-        except ValueError as e:
-            print(e)
-
-
-def validate_username_input(username):
+def validate_username_input():
     """
     Validates username to check it isn't already in the users spreadsheet
     and checks length is less than 20 characters
     """
-#    while True:
-#        try:
-#            username = input("\nUsername: ")
-#
- #           # Check if username already exists in spreadsheet
- #           if username in [user[0] for user in users.get_all_values()[1:]]:
-  #              raise ValueError("Sorry, that username is taken.  Please try"
-   #                              " another.")
+    while True:
+        try:
+            username = input("\nUsername: ")
 
-    #        if len(username) > 20:
-    #           raise ValueError("Username must be 20 characters or less.")
+            # Check if username already exists in spreadsheet
+            if username in [user[0] for user in users.get_all_values()[1:]]:
+                raise ValueError("Sorry, that username is taken.  Please try"
+                                 " another.")
 
-    #      return username
+            if len(username) > 20:
+                raise ValueError("Username must be 20 characters or less.")
 
-    # except ValueError as e:
-    #    print(e)
-    if len(username) > 20:
-        raise ValueError("Username must be 20 characters or less.")
+            return username
 
-    # Check if username already exists in spreadsheet
-    if username in [user[0] for user in users.get_all_values()[1:]]:
-        raise ValueError("Sorry, that username is taken.  Please try another.")
+        except ValueError as e:
+            print(e)
 
 
 def validate_name_input():
@@ -241,17 +221,13 @@ def validate_phone_input():
 
 def validate_password_input():
     """
-    Validates Password input to check it contains both
-    upper and lowercase letters, a number and is at least 8
-    characters long
+    Check password contains both upper and lowercase letters, a number
+    and is at least 8 characters long
     """
     while True:
         try:
-            print("Password must contain upper and lower case and at least"
-                  "one digit.")
             password = input("\nPassword: ")
 
-            # Checks for length, both cases and a digit
             if len(password) < 8:
                 raise ValueError(
                     "Password must be at least 8 characters long.")
@@ -261,13 +237,14 @@ def validate_password_input():
                                  " lowercase letter.")
 
             if not any(character.isupper() for character in password):
-                raise ValueError("Password must contain at least one"
-                                 " uppercase letter.")
+                raise ValueError(
+                    "Password must contain at least one uppercase letter.")
 
             if not any(character.isnumeric() for character in password):
-                raise ValueError("Password must contain at least one"
-                                 " digit.")
+                raise ValueError("Password must contain at least one digit.")
+
             return password
+
         except ValueError as e:
             print(e)
 
